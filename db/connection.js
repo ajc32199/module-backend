@@ -1,7 +1,7 @@
-import { MongoCLient, ServerApiVersion } from "mongodb";
+import { MongoClient, ServerApiVersion } from "mongodb";
 
-const uri = process.env.ATLAS_URI || "";
-const client = new MongoCLient(uri, {
+const URI = process.env.ATLAS_URI || "";
+const client = new MongoClient(URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -10,16 +10,15 @@ const client = new MongoCLient(uri, {
 });
 
 try {
-  //connect the client to server
+  // Connect the client to the server
   await client.connect();
-
-  //send a ping to confirm a succesful connection
+  // Send a ping to confirm a successful connection
   await client.db("admin").command({ ping: 1 });
-  console.log("Connected to MongoDB");
+  console.log("Pinged your deployment. You successfully connected to MongoDB!");
 } catch (err) {
   console.error(err);
 }
 
-let db = client.db("tkemembers");
+let db = client.db("FraternityDB");
 
 export default db;

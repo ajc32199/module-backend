@@ -1,18 +1,15 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const records = require("./routes/record.js");
-
-require("dotenv").config({ path: "./config.env" });
+import express from "express";
+import cors from "cors";
+import member from "./routes/member.js";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/record", records);
+app.use("/member", member);
 
-//start express server
+// start the Express server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
