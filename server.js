@@ -1,14 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
+const records = require("./routes/record.js");
 
+require("dotenv").config({ path: "./config.env" });
+
+const PORT = process.env.PORT || 5050;
 const app = express();
 
-app.get("/api", (req, res) => {
-  res.json({ users: ["user1", "user2", "user3"] });
-});
+app.use(cors());
+app.use(express.json());
+app.use("/record", records);
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+//start express server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
