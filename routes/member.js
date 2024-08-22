@@ -36,6 +36,9 @@ router.post("/", async (req, res) => {
       position: req.body.position,
       grade: req.body.grade,
       debt: req.body.debt,
+      active_status: req.body.active_status,
+      scroll_number: req.body.scroll_number,
+      comments: req.body.comments,
     };
     let collection = await db.collection("members");
     let result = await collection.insertOne(newDocument);
@@ -56,6 +59,9 @@ router.patch("/:id", async (req, res) => {
         position: req.body.position,
         grade: req.body.grade,
         debt: req.body.debt,
+        active_status: req.body.active_status,
+        scroll_number: req.body.scroll_number,
+        comments: req.body.comments,
       },
     };
 
