@@ -1,15 +1,21 @@
-import express from "express";
-import cors from "cors";
-import member from "./routes/member.js";
+require('dotenv').config();
 
-const PORT = process.env.PORT || 5050;
+const express = require('express');
+
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-app.use("/member", member);
-
-// start the Express server
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+//middleware
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
+    next();
 });
+
+//routes
+app.get('/', (req, res) => {
+    res.json({mssg: 'Hello SSSSWorld'});
+});
+
+app.listen(process.env.PORT, () =>{
+    console.log(`Server is running on ${process.env.PORT}`);
+});
+
