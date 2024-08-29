@@ -5,6 +5,8 @@ const {
   createMember,
   getMembers,
   getAllMembers,
+  deleteMember,
+  updateMember,
 } = require("../controllers/memberController");
 
 // @route GET api/members
@@ -17,13 +19,9 @@ router.get("/:id", getMembers);
 router.post("/", createMember);
 
 //delete member
-router.delete("/:id", (req, res) => {
-  res.json({ msg: `DELETE MEMBER WITH ID ${req.params.id}` });
-});
+router.delete("/:id", deleteMember);
 
 //update member
-router.patch("/:id", (req, res) => {
-  res.json({ msg: `UPDATE MEMBER WITH ID ${req.params.id}` });
-});
+router.patch("/:id", updateMember);
 
 module.exports = router;

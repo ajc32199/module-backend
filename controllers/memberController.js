@@ -1,12 +1,13 @@
+const MemberModel = require("../models/MemberModel");
 const Member = require("../models/MemberModel");
 const mongoose = require("mongoose");
 
 
 //get all members
 const getAllMembers = async (req, res) => {
-    const workouts = await Workout.find({}).sort({createdAt: -1})
+    const members = await MemberModel.find({}).sort({createdAt: -1})
 
-    res.status(200).json(workouts)
+    res.status(200).json(members)
 }
 
 //get a single member
@@ -56,12 +57,45 @@ const createMember = async (req, res) => {
 }
 
 //delete a member
+const deleteMember = async (req, res) => {
+    const {id} = req.params
 
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({msg: `INVALID ID ${id}`})
+    }
+
+    const member = await Member.findOneAndDelete({_id: id})
+
+    if(!member){
+        return res.status(404).json({msg: `Member WITH ID ${id} NOT FOUND`})
+    }   
+
+    res.status(200).json({msg: `Member WITH ID ${id} DELETED`})
+}
 
 //update a member
+const updateMember = async (req, res) =>{
+    const {id} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({msg: `INVALID ID ${id}`})
+    }
+
+    const member = await Member.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    if(!member){
+        return res.status(404).json({msg: `Member WITH ID ${id} NOT FOUND`})
+    } 
+
+    res.status(200).json({msg: `Member WITH ID ${id} UPDATED`})
+}
 
 module.exports = {
     getAllMembers,
     getMembers,
-    createMember
+    createMember,
+    deleteMember,
+    updateMember
 }
