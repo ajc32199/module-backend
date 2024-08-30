@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const memberRoutes = require("./routes/members");
+const authRoutes = require("./routes/auth");
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 
 //routes
 app.use("/api/members/", memberRoutes);
+app.use("/api/auth/", authRoutes);
 
 //connect to db
 mongoose.connect(process.env.ATLAS_URI)
